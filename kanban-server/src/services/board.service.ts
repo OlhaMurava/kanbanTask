@@ -83,12 +83,6 @@ export async function createBoard(title: string) {
       );
     }
 
-    // for (const col of defaultColumns) {
-    //   await client.query(
-    //     'INSERT INTO columns (id, title, board_id) VALUES ($1, $2, $3)',
-    //     [col.id, col.title, boardId]
-    //   );
-    // }
 
     await client.query('COMMIT');
     return { id: boardId, title, columns: defaultColumns };
