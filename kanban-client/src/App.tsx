@@ -139,7 +139,7 @@ const handleSaveBoard = () => {
   };
 
 const handleAddTask = () => {
-  if (!activeBoardId  !newTaskColumnId  !newTaskTitle.trim() || !newTaskDesc.trim()) {
+  if (!activeBoardId || !newTaskColumnId || !newTaskTitle.trim() || !newTaskDesc.trim()) {
     alert('Please fill in the task name, description and select a column.');
     return;
   }
