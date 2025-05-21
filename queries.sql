@@ -15,3 +15,5 @@ CREATE TABLE tasks (
   description TEXT NOT NULL,
   column_id UUID REFERENCES columns(id) ON DELETE CASCADE
 );
+
+ALTER TABLE columns ADD COLUMN position INTEGER;
