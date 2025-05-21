@@ -43,10 +43,20 @@ export const fetchBoardById = createAsyncThunk('boards/fetchBoardById', async (b
 });
 
 // Create Board
-export const createBoard = createAsyncThunk('boards/createBoard', async (title: string) => {
-  const res = await axios.post<Board>(API_URL, { title });
-  return res.data;
-});
+export const createBoard = createAsyncThunk(
+  'boards/createBoard',
+  async (title: string, { rejectWithValue }) => {
+    try {
+      const res = await axios.post<Board>(API_URL, { title });
+      return res.data;
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        return rejectWithValue(err.response.data);
+      }
+      return rejectWithValue({ message: 'Unknown error' });
+    }
+  },
+);
 
 // Delete Board
 export const deleteBoard = createAsyncThunk('boards/deleteBoard', async (id: string) => {
