@@ -1,7 +1,6 @@
 import { pool } from '../db/pool';
 import { generateId } from '../utils/generateId';
 import { Board, Column } from '../models/board.model';
-import { validateBoardTitle, validateTaskInput } from '../validators/board.validator';
 
 export async function getAllBoards() {
   const result = await pool.query('SELECT * FROM boards');
@@ -56,7 +55,6 @@ export async function getFullBoard(boardId: string): Promise<Board | null> {
 }
 
 export async function createBoard(title: string) {
-  validateBoardTitle(title);
   const boardId = generateId();
   const client = await pool.connect();
   const defaultColumns = [
@@ -101,7 +99,6 @@ export async function addTask(
   title: string,
   description: string
 ) {
-  validateTaskInput(title, description);
   const taskId = generateId();
   await pool.query(
     'INSERT INTO tasks (id, title, description, column_id) VALUES ($1, $2, $3, $4)',
