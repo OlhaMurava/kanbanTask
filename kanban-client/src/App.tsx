@@ -60,16 +60,23 @@ const App: React.FC = () => {
     dispatch(fetchBoards());
   }, [dispatch]);
 
-  const handleLoadBoard = () => {
-    if (!inputBoardId.trim()) return;
-    dispatch(setActiveBoard(inputBoardId.trim()));
-  };
+const handleLoadBoard = () => {
+  if (!inputBoardId.trim()) {
+    alert('Please, fill in Board ID.');
+    return;
+  }
 
-  const handleSaveBoard = () => {
-    if (!boardTitleInput.trim()) return;
-    dispatch(createBoard(boardTitleInput.trim()));
-    setBoardTitleInput('');
-  };
+  dispatch(setActiveBoard(inputBoardId.trim()));
+};
+
+const handleSaveBoard = () => {
+  if (!boardTitleInput.trim()) {
+    alert('Please, fill in Board Name.');
+    return;
+  }
+  dispatch(createBoard(boardTitleInput.trim()));
+  setBoardTitleInput('');
+};
 
   const handleDeleteBoard = (id: string) => {
     if (window.confirm('Delete this board?')) {
@@ -131,22 +138,25 @@ const App: React.FC = () => {
     }
   };
 
-  const handleAddTask = () => {
-    if (!activeBoardId || !newTaskColumnId || !newTaskTitle.trim()) return;
+const handleAddTask = () => {
+  if (!activeBoardId  !newTaskColumnId  !newTaskTitle.trim() || !newTaskDesc.trim()) {
+    alert('Please fill in the task name, description and select a column.');
+    return;
+  }
 
-    dispatch(
-      addTaskToColumn({
-        boardId: activeBoardId,
-        columnId: newTaskColumnId,
-        title: newTaskTitle.trim(),
-        description: newTaskDesc.trim(),
-      }),
-    );
+  dispatch(
+    addTaskToColumn({
+      boardId: activeBoardId,
+      columnId: newTaskColumnId,
+      title: newTaskTitle.trim(),
+      description: newTaskDesc.trim(),
+    }),
+  );
 
-    setNewTaskTitle('');
-    setNewTaskDesc('');
-    setNewTaskColumnId('');
-  };
+  setNewTaskTitle('');
+  setNewTaskDesc('');
+  setNewTaskColumnId('');
+};
 
   // Drag & drop
 
